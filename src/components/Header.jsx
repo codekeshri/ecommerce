@@ -2,8 +2,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Header.css";
+import { CartContext } from "./Context/CartContext";
+import { useContext, useState } from "react";
 
 export const Header = () => {
+  const cartCtx = useContext(CartContext);
+
+  const [cartClicked, setCartClicked] = useState(false);
+
+  const showCart = () => {
+    setCartClicked(true);
+    cartCtx.cartClicked = true;
+    console.log("cart clicked", cartClicked, cartCtx.cartClicked);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark ">
       <div className="container-fluid">
@@ -25,8 +37,12 @@ export const Header = () => {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <a className="nav-link" href="#cart">
-                <FontAwesomeIcon icon={faShoppingCart} className="fa" />
-                <span className="badge">{"9"}</span>
+                <FontAwesomeIcon
+                  icon={faShoppingCart}
+                  className="fa"
+                  onClick={showCart}
+                />
+                <span className="badge">{cartCtx.items.length}</span>
               </a>
             </li>
             <li className="nav-item">
@@ -45,7 +61,7 @@ export const Header = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#contact">
+              <a className="nav-link" href="#c" onClick={showCart}>
                 Contact
               </a>
             </li>

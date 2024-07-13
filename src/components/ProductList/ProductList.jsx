@@ -1,4 +1,4 @@
-import "./List.css";
+import "./ProductList.css";
 
 export const List = () => {
   const productsArr = [
